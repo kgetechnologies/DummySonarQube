@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    
+    var id = Guid.NewGuid().ToString("N").ToUpper();
+}
+@using (Html.BeginForm("Create", "payment", FormMethod.Post))
+{
+    <table width="40%" height="100" border='1' align="center"><caption><font size="4" color="blue"><b>Integration Kit</b></font></caption></table>
+    <table width="40%" height="100" border='1' align="center">
+        <tr>
+            <td>Parameter Name:</td>
+            <td>Parameter Value:</td>
+        </tr>
+        <tr>
+            <td colspan="2"> Compulsory information</td>
+        </tr>
+        <tr>
+            <td>TID	:</td>
+            <td><input type="text" name="tid" id="tid" readonly /></td>
+        </tr>
+        <tr>
+            <td>Merchant Id</td>
+            <td><input type="text" name="merchant_id" id="merchant_id" value="360996" /></td>
+        </tr>
+        <tr>
+            <td>Order Id</td>
+            <td><input type="text" name="order_id" value="@id" /></td>
+        </tr>
+        <tr>
+            <td>Amount</td>
+            <td><input type="text" name="amount" value="1.00" /></td>
+        </tr>
+        <tr>
+            <td>Currency</td>
+            <td><input type="text" name="currency" value="INR" /></td>
+        </tr>
+        <tr>
+            <td>Redirect URL</td>
+            <td><input type="text" name="redirect_url" value="https://ia.kgetechnologies.com/payment/PaymentSuccess" /></td>
+        </tr>
+        <tr>
+            <td>Cancel URL</td>
+            <td><input type="text" name="cancel_url" value="https://ia.kgetechnologies.com/payment/PaymentFailed" /></td>
+        </tr>
+       
+        <tr>
+            <td>Merchant Param1</td>
+            <td><input type="text" name="merchant_param1" value="additional Info." /></td>
+        </tr>
+        <tr>
+            <td>Merchant Param2</td>
+            <td><input type="text" name="merchant_param2" value="additional Info." /></td>
+        </tr>
+        <tr>
+            <td>Merchant Param3</td>
+            <td><input type="text" name="merchant_param3" value="additional Info." /></td>
+        </tr>
+        <tr>
+            <td>Merchant Param4</td>
+            <td><input type="text" name="merchant_param4" value="additional Info." /></td>
+        </tr>
+        <tr>
+            <td>Merchant Param5</td>
+            <td><input type="text" name="merchant_param5" value="additional Info." /></td>
+        </tr>
+        <tr>
+            <td>Promo Code</td>
+            <td><input type="text" name="promo_code" /></td>
+        </tr>
+        <tr>
+            <td>Customer Id:</td>
+            <td><input type="text" name="customer_identifier" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Checkout" /></td>
+        </tr>
+    </table>}

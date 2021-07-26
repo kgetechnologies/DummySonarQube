@@ -1,0 +1,99 @@
+﻿@model PaymentGateway.Models.PGStatusResponse
+@{
+    var status = true;
+    var statusClass = "text-success";
+    var statusMessage = "Successfully";
+    var bgStatusClass = "bg-success";
+    if (!Model.BoolOrderStatus)
+    {
+        status = false;
+        statusClass = "text-danger";
+        statusMessage = "Failed";
+        bgStatusClass = "bg-danger";
+    }
+    DateTime.TryParse(@Model.ReqTranxDate, out DateTime RTDate);
+    DateTime.TryParse(@Model.TranxDate, out DateTime TxDate);
+}
+
+<div class="container-fluid">
+    <div id="PdfDownload" class="transaction-card">
+        <p class="company-text">PaySecurely.Online - Transaction Status</p>
+        <h3 class="font-bold">Dear @Model.Name</h3>
+        @if (status)
+        {
+            <p class="transaction-outline">
+                We have recieved your payment of <span style="font-family:Aerial, sans-serif">₹</span> @Model.Amount <span class="@statusClass">@statusMessage</span>.<br/> Your transaction ID is <span class="transaction-id">@Model.TranxId</span>
+            </p>
+        }
+        else
+        {
+            <p class="transaction-outline">
+                <span>
+                    Your Payment of <span style="font-family:Aerial, sans-serif">₹</span> @Model.Amount was <span class="@statusClass">@statusMessage</span>.<br/> Your transaction Id is <span class="transaction-id">@Model.TranxId</span>.
+                </span>
+                @if (!string.IsNullOrEmpty(Model.FailureMessage))
+                {
+                    <span>-due to @Model.FailureMessage</span>
+                }
+            </p>
+        }
+        <hr>
+        <div class="transaction-info-container">
+            <div class="transaction-info-group">
+                <span class="info-title">Bank Ref No</span>
+                <span> @Model.BankRefId</span>
+            </div>
+            <div class="transaction-info-group">
+                <span class="info-title">Payment Request Date</span>
+                <span>@Model.ReqTranxDate</span>              
+            </div>
+            <div class="transaction-info-group">
+                <span class="info-title">Transaction Date</span>
+                <span>@Model.TranxDate</span>
+            </div>
+        </div>
+        <hr>
+        <!-- End of transaction info container -->
+        <p class="summary-text">Transaction Summary</p>
+        <div class="summary-card">
+            <div class="summary-item-group @bgStatusClass">
+                <span class="font-bold">Payment Status</span>
+                <span class="font-bold">@statusMessage</span>
+            </div>
+            <div class="summary-item-group">
+                <span>Order ID</span>
+                <span class="break-word order-id">@Model.TrackingId</span>
+            </div>
+            <div class="summary-item-group">
+                <span>Payment Mode</span>
+                <span>@Model.PaymentMode</span>
+            </div>
+            <div class="summary-item-group">
+                <span>Card Type</span>
+                <span>@Model.CardName</span>
+            </div>
+            <div class="summary-item-group">
+                <span>Request Amount</span>
+                <span>@Model.Amount</span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.FailureMessage))
+            {
+                <div class="summary-item-group @bgStatusClass">
+                    <span class="font-bold">Failure Reason</span>
+                    <span class="font-bold"> @Model.FailureMessage</span>
+                </div>
+            }
+        </div>
+        <!-- End of summary card -->
+    </div>
+    <!-- End of transaction card -->
+    <div class="button-group">
+        <button class="print-reciept" id="print-btn">
+            Download reciept
+        </button>
+        <button data-trnxid="@Model.ShortUrl" id="copy-tranx">
+            Copy transaction
+        </button>
+    </div>
+</div>

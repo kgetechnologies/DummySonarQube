@@ -1,0 +1,13 @@
+﻿@model string
+@{
+    
+
+}
+@if (string.IsNullOrEmpty(Model))
+{
+    @Html.Raw("You are not authorized to visit the page, Please contact the provider to get valid URL")
+}
+else
+{
+    @Html.Raw(Model)
+}

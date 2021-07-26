@@ -1,0 +1,13 @@
+﻿@model  PaymentGateway.Models.InitiatePaymentRequest
+@{
+    ViewBag.Title = "InitiateTransaction";
+    
+}
+
+<h2>InitiateTransaction</h2>
+
+<form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction.do?command=initiateTransaction">
+    <input type="hidden" id="encRequest" name="encRequest" value=@Model.EncRequest />
+    <input type="hidden" name="access_code" id="Hidden1" value=@Model.AccessCode />
+    <input type="submit" value="Checkout" />
+</form>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Payment Gateway</title>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfKm64aAAAAABmUY7Pa2VbdkBB3dKFkXEWLjkgm"></script>
+
+
+    <script type="text/javascript">
+        if (self == top) {
+            document.documentElement.className = document.documentElement.className.replace(/\bjs-flash\b/, '');
+        }
+        else {
+            top.location = self.location;
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Payment Gateway Test", "Index", "Payment", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="text-center">&copy; @DateTime.Now.Year - C2C Venture Pvt Ltd</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jspdf.umd.min.js"></script>
+
+    <script src="~/Scripts/jquery-3.6.0.slim.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+        maxmind_user_id = "537345";/* "6QY43Gawh0BNhO1j";*/
+        (function () {
+            var loadDeviceJs = function () {
+                var element = document.createElement('script');
+                element.src = 'https://device.maxmind.com/js/device.js';
+                document.body.appendChild(element);
+            };
+            if (window.addEventListener) {
+                window.addEventListener('load', loadDeviceJs, false);
+            } else if (window.attachEvent) {
+                window.attachEvent('onload', loadDeviceJs);
+            }
+        })();
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

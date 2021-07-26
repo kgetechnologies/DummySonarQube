@@ -1,0 +1,113 @@
+﻿@model PaymentGateway.Models.PGStatusResponse
+@{
+    var status = true;
+    var statusMessage = "Successfull";
+    var bgStatusColor = "#62ff54";
+    if (!Model.BoolOrderStatus)
+    {
+        status = false;
+        statusMessage = "Failed";
+        bgStatusColor = "#ff5d35";
+    }
+    DateTime.TryParse(@Model.ReqTranxDate, out DateTime RTDate);
+    DateTime.TryParse(@Model.TranxDate, out DateTime TxDate);
+}
+
+<main style="\
+  position: relative;\
+  width: 80%;\
+  margin: 4rem auto;\
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\
+">
+  <h2>Dear @Model.Name</h2>
+  @if (status) {
+    <p style="font-size: 17px; margin-bottom: 1rem;">
+      Thank you for your payment. We have recieved your payment of
+      <span style="font-family:Aerial">₹</span> @Model.Amount
+      <span style="color: #62ff54; font-weight: 600;">successfully</span>.
+      Your payment transaction ID is <span style="font-weight: bold;">@Model.TranxId</span>
+    </p>
+  }
+  else {
+    <p style="font-size: 17px; margin-bottom: 1rem;">
+      Your payment of <span style="font-family:Aerial">₹</span> @Model.Amount
+      <span style="color: #ff5d35; font-weight: 600;">failed</span>. Your payment 
+      transaction ID is <span style="font-weight: bold;">@Model.TranxId</span>
+    </p>
+    <p>
+      @if (!string.IsNullOrEmpty(Model.FailureMessage)) {
+        <span>-due to @Model.FailureMessage</span>
+      }
+    </p>
+  }
+  <h3 style="border-top: 3px solid #800080;padding-top: 1rem;">
+    Summary
+  </h3>
+  <div>
+    <div style="\
+      display: flex;\
+      justify-content: space-between;\
+      font-size: 17px;\
+      font-weight: 500;\
+      padding: 1.5rem;\
+      background-color: #e6e6e6;\
+      border-radius: 4px;\
+      margin-top: 5px;\
+    ">
+        <span>Order Id</span>
+        <span>@Model.TrackingId</span>
+    </div>
+    <div style="\
+      display: flex;\
+      justify-content: space-between;\
+      font-size: 17px;\
+      font-weight: 500;\
+      padding: 1.5rem;\
+      background-color: #e6e6e6;\
+      border-radius: 4px;\
+      margin-top: 5px;\
+    ">
+        <span>Payment Mode</span>
+        <span>@Model.PaymentMode</span>
+    </div>
+    <div style="\
+      display: flex;\
+      justify-content: space-between;\
+      font-size: 17px;\
+      font-weight: 500;\
+      padding: 1.5rem;\
+      background-color: #e6e6e6;\
+      border-radius: 4px;\
+      margin-top: 5px;\
+    ">
+        <span>Card Type</span>
+        <span>@Model.CardName</span>
+    </div>
+    <div style="\
+      display: flex;\
+      justify-content: space-between;\
+      font-size: 17px;\
+      font-weight: 500;\
+      padding: 1.5rem;\
+      background-color: #e6e6e6;\
+      border-radius: 4px;\
+      margin-top: 5px;\
+    ">
+        <span>Request Amount</span>
+        <span>@Model.Amount</span>
+    </div>
+    <div style="\
+      display: flex;\
+      justify-content: space-between;\
+      font-size: 17px;\
+      font-weight: 700;\
+      padding: 1.5rem;\
+      background-color: @bgStatusColor;\
+      border-radius: 4px;\
+      margin-top: 5px;\
+    ">
+        <span>Payment Status</span>
+        <span>@statusMessage</span>
+    </div>
+  </div>
+</main>

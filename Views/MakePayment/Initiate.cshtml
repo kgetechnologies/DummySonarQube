@@ -1,0 +1,140 @@
+﻿@using PaymentGateway.Models;
+@using Shared.Extensions;
+@model PaymentGateway.Models.MakePaymentResponse
+@{
+
+}
+<script type="text/javascript">
+    function JSFn(status) {
+        if (document.querySelector("#modal_product_details") != null) {
+            document.querySelector("#modal_product_details").style.display = status ? "none" : "block";
+            document.querySelector("#modal_product_details").hidden = status;
+        }
+
+    }
+</script>
+@using (Html.BeginForm("Create", "MakePayment", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.SecureHiddenFor(f => f.UserId)
+    @Html.SecureHiddenFor(f => f.RequestId)
+    @Html.SecureHiddenFor(f => f.DummyData)
+    @Html.HiddenFor(f=>f.Amount)
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Full Name</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Html.DisplayFor(model => model.FullName)</span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Card Number Going to Use</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Html.DisplayFor(model => model.CardNumberToUse)</span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Transaction Amount</label>
+        <div class="col-sm-10">
+            <span class="form-control">@Html.DisplayFor(model => model.Amount)</span>
+        </div>
+    </div>
+
+    <div class="row mb-3  d-none">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                @Html.CheckBoxFor(f => f.ConfirmCheckBox, new { @class = "form-check-input" })
+                <label class="form-check-label" for="gridCheck1">
+                    I Confirm  to pay with paysecurely.Online and Agree to the Terms &Aacute; Conditions
+                </label>
+
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3 d-none">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                @Html.TextBoxFor(f => f.Check1, new { @class = "form-check-input" })
+                <label class="form-check-label" for="gridCheck1">
+                    Type your given secret Code 1
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3  d-none">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                @Html.TextBoxFor(f => f.Check1, new { @class = "form-check-input" })
+                <label class="form-check-label" for="gridCheck1">
+                    Type your given secret Code 2
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                @Html.CheckBoxFor(f => f.AgreeCheckBox, new { @class = "form-check-input" })
+                <label class="form-check-label" for="gridCheck1">
+                    I have carefully read the said terms and conditions, understood and hereby agree & accept the same.
+                    I also confirm the details of payment requested by the Merchant and agree to pay <b>@Model.Amount</b> for the said purchases.
+                </label>
+            </div>
+        </div>
+    </div>
+
+    @Html.ReCaptchaValidationMessage()
+    @Html.ReCaptchaHidden()
+    @Html.ReCaptchaJS()
+    <button type="submit" class="captchaValidate btn btn-primary">Make Payment</button>
+
+
+    @*<div onclick="JSFn(false)"><span id="showDialog">Revise Customer Information</span></div>*@
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open modal</button>
+    <div id="modal_product_details" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">TERMS AND CONDITIONS - Services Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="div_product_details">
+
+                        @Html.Partial("TermsAndConditions")
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="JSFn(true)">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- code by w3codegenerator.com -->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="document" data-backdrop="static" data-keyboard="true" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">TERMS AND CONDITIONS - Services Payment</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @*@Html.Partial("TermsAndConditions")*@
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,9 @@
+﻿@model Tuple<string, string>
+
+@if (!string.IsNullOrEmpty(Model.Item2))
+{
+    <div class="form-group d-flex justify-content-between fv-plugins-icon-container has-success mb-2">
+        <label class="font-size-h6 font-weight-bolder text-dark">@Model.Item1</label>
+        <label class="font-size-h6 font-weight-bolder text-success">@Model.Item2</label>
+    </div>
+}
